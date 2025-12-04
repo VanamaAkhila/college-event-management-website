@@ -1,0 +1,37 @@
+/* General styles for body and layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+/* Main content styling */
+section {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Notifications section */
+#notifications {
+    margin-top: 20px;
+}

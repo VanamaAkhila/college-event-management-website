@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Report Generator</title>
+    <style>
+         body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e88e5, #4caf50);
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #previewContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #header img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        #eventTitle {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #eventDate {
+            text-align: left;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        #eventDescription {
+            margin-top: 15px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        #imageGallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #imageGallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Event Report Form</h2>
+        <label>Event Title:</label>
+        <input type="text" id="titleInput" placeholder="Enter event title">
+
+        <label>Date:</label>
+        <input type="date" id="dateInput">
+
+        <label>Description:</label>
+        <textarea id="descInput" placeholder="Enter event description"></textarea>
+
+        <label>Upload 4 Images:</label>
+        <input type="file" id="imgInput1" accept="image/*">
+        <input type="file" id="imgInput2" accept="image/*">
+        <input type="file" id="imgInput3" accept="image/*">
+        <input type="file" id="imgInput4" accept="image/*">
+
+        <button onclick="generateReport()">Generate Report</button>
+    </div>
+
+    <div class="container" id="previewContainer">
+        <!-- College Banner -->
+        <div id="header">
+            <img src="C:\Users\ksrav\Downloads\banner.jpeg" alt="College Banner">
+        </div>
+
+        <!-- Dynamic Content -->
+        <div id="eventTitle"></div>
+        <div id="eventDate"></div>
+        <div id="eventDescription"></div>
+
+        <!-- Image Gallery -->
+        <div id="imageGallery">
+            <img id="preview1" src="#" alt="Uploaded Image 1">
+            <img id="preview2" src="#" alt="Uploaded Image 2">
+            <img id="preview3" src="#" alt="Uploaded Image 3">
+            <img id="preview4" src="#" alt="Uploaded Image 4">
+        </div>
+    </div>
+
+    <script>
+        function generateReport() {
+            // Get input values
+            const title = document.getElementById("titleInput").value;
+            const date = document.getElementById("dateInput").value;
+            const description = document.getElementById("descInput").value;
+
+            if (!title || !date || !description) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            // Set values in report
+            document.getElementById("eventTitle").innerHTML = `<b>EVENT NAME: ${title}</b>`;
+            document.getElementById("eventDate").innerHTML = `Date: ${date}`;
+            document.getElementById("eventDescription").innerText = description;
+
+            // Display images
+            const imgInputs = [document.getElementById("imgInput1"), document.getElementById("imgInput2"), document.getElementById("imgInput3"), document.getElementById("imgInput4")];
+            const imgPreviews = [document.getElementById("preview1"), document.getElementById("preview2"), document.getElementById("preview3"), document.getElementById("preview4")];
+
+            for (let i = 0; i < 4; i++) {
+                if (imgInputs[i].files.length > 0) {
+                    const file = imgInputs[i].files[0];
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imgPreviews[i].src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imgPreviews[i].src = "";
+                }
+            }
+
+            // Show the report section
+            document.getElementById("previewContainer").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
